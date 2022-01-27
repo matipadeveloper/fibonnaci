@@ -1,0 +1,21 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t matipadocker/fib-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true matipadocker/fib-test npm test -- --coverage
+
+after_success:
+  - docker build -t matipadocker/fib-client ./client
+  - docker build -t matipadocker/fib-server ./server
+  - docker build -t matipadocker/fib-worker ./worker
+  - docker build -t matipadocker/nginx ./nginx
+
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push matipadocker/fib-client
+  - docker push matipadocker/fib-nginx
+  - docker push matipadocker/fib-server
+  - docker push matipadocker/fib-worker
