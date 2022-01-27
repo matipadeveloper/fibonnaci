@@ -1,0 +1,9 @@
+{
+  "AWSEBDockerrunVersion": 1,
+  "containerDefinitions": [
+    {
+      "name":"client",
+      "image": "matipadocker/fib-"
+    }
+  ]
+}

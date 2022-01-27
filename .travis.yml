@@ -12,7 +12,7 @@ after_success:
   - docker build -t matipadocker/fib-client ./client
   - docker build -t matipadocker/fib-server ./server
   - docker build -t matipadocker/fib-worker ./worker
-  - docker build -t matipadocker/nginx ./nginx
+  - docker build -t matipadocker/fib-nginx ./nginx
 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push matipadocker/fib-client
